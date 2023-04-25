@@ -26,7 +26,7 @@ sudo systemctl enable inetd
 sudo service inetd start
 ```
 
-In ``bpq32.cfg`` add the port specified above (63004) to the BPQ Telnet port list, CMDPORT= 
+In ``bpq32.cfg`` add the port specified above (63004) to the BPQ Telnet port list, ``CMDPORT=``
 
 Note the port's position offset in the list as that will be referenced in the ``APPLICATION`` line next.
 
