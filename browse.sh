@@ -31,7 +31,7 @@ WebLogFile="/var/log/bpq-browser.log"
 # Ensure this location is owned & writable by the user running this script. i.e:
 #   sudo touch /var/log/bpq-browser.log
 #   sudo chown pi:pi /var/log/bpq-browser.log
-# Change 'pi' to your whichever username and group the script runs with..
+# Change 'pi' to your whichever username and group the script runs with.
 
 # Link to your start page
 PortalURL="http://matrix.ehvairport.com/~bpq/"
