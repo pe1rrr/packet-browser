@@ -15,20 +15,30 @@
 # You should have received a copy of the GNU General Public License
 # along with browse.sh.  If not, see http://www.gnu.org/licenses
 
-Version="0.3.4a by PE1RRR updated Friday 2023-03-10"
+Version="0.3.5 by PE1RRR updated Wednesday 2023-04-26"
 #
 # Configuration
 # 
 LynxBin="/usr/bin/lynx"  # sudo apt install lynx
 CurlBin="/usr/bin/curl"  # sudo apt install curl
-WebLogFile="/var/log/bpq-browser.log" # sudo touch /var/log/bpq-browser.log; sudo chown pi:pi /var/log/bpq-browser.log
+
+# Do you want to log requests? 1=Yes 0=No
+LogRequests=1
+
+# Logfile location
+WebLogFile="/var/log/bpq-browser.log" 
+
+# Ensure this location is owned & writable by the user running this script. i.e:
+#   sudo touch /var/log/bpq-browser.log
+#   sudo chown pi:pi /var/log/bpq-browser.log
+# Change 'pi' to your whichever username and group the script runs with..
 
 # Link to your start page
 PortalURL="http://matrix.ehvairport.com/~bpq/"
 
 # It is recommended to set up a proxy server locally to handle the requests from this script
 # it adds a level of control over which content can and cannot be requested, squid proxy is
-# utilized for this, but if you do not want to use it, comment the 2 lines out below.
+# utilized for this, but if you do not want to use it, comment the 3 lines out below.
 # I have set up my squid proxy to use alternate DNS servers of OpenDNS FamilyShield.
 
 myproxy="http://127.0.0.1:3128"
@@ -331,11 +341,14 @@ function LogUser() {
 	URL=$1
 	Date=`date`
 
-	if ! [ -e ${WebLogFile} ]
+	if [ ${LogRequests} == "1" ]
 	then
-		touch ${WebLogFile}
+		if ! [ -e ${WebLogFile} ]
+		then
+			touch ${WebLogFile}
+		fi
+		echo "${Date}: ${Callsign} requested ${URL}" >> ${WebLogFile}
 	fi
-	echo "${Date}: ${Callsign} requested ${URL}" >> ${WebLogFile}
 }
 
 function DownloadPage() {

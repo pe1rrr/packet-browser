@@ -1,12 +1,12 @@
 ## Usage & Installation
-Prerequisits:
+Required Packages:
 
 ```
 sudo apt install lynx
 sudo apt install openbsd-inetd
 ```
 
-Add the following line to /etc/inetd.conf
+Add the following line to ``/etc/inetd.conf``
  
 ```
  browse		stream	tcp	nowait	bpq		/full/path/to/your/packet-browser/browse.sh client ax25
@@ -44,6 +44,20 @@ Syntax:
  ``<node instruction>`` is where the command 'web' is told to use BPQ port ``10`` (the telnet port, yours may be different!)
 
 ``HOST`` is a command to tell BPQ to look at the BPQ Telnet ``CMDPORT=`` list, and '1' is to pick offset position 1, that in turn resolves to TCP port 63004. The 'S' tells the node to return the user back to the node when they exit the web portal instead of disconnecting them, it refers to the word 'Stay'.
+
+## Logging
+
+Logging is enabled by default, if you do not want to use the logging system then change the ``LogRequests`` variable from ``1`` to ``0``.
+The default path to the log file is ``/var/log/bpq-browser.log``.
+
+Create the log file manually:
+```
+sudo touch /var/log/bpq-browser.log
+```
+Change the ownership of the log file to the same username that was configured in the ``inetd.conf`` section, this will allow the script to write to the log file.
+```
+sudo chown bpq:bpq /var/log/bpq-browser.log
+```
 
 ## OpenDNS Family Shield Protection
 
